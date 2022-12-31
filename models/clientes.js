@@ -13,6 +13,6 @@ const clienteSchema = new Schema({
     qr:                 {type: String, required: true},
 });
 
-clientes = model('clientes', clienteSchema, 'clientes');
+clientes = model('clientes_qrs', clienteSchema, 'clientes_qrs');
 
 module.exports = clientes;
