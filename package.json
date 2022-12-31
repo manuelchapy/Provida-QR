@@ -1,0 +1,21 @@
+{
+  "name": "provida-qr",
+  "version": "1.0.0",
+  "description": "Sistema de servicios para facturas y resultados por medio de codigos QR",
+  "main": "index.js",  "scripts": {
+    "test": "npm run index.js",
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "author": "Chapy e Isa",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.0",
+    "qrcode": "^1.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
