@@ -1,8 +1,9 @@
 //require('dotenv').config();
 const {connect} = require('mongoose');
 //import connect from "mongoose";
-/*
+
 //funcion anonima
+
 (async () => {
     try {
         //mongodb://localhost/providaQR
@@ -13,4 +14,3 @@ const {connect} = require('mongoose');
         console.error(error)
     }
 })()
-*/
