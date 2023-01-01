@@ -1,6 +1,5 @@
 const clientesCtrl = {};
-const clienteModel = require("../models/clientes");
-const uniqid  =  require ( 'uniqid' ) ; 
+const clienteModel = require("../models/clientes"); 
 
 clientesCtrl.agregarCliente = async(req, res) =>{
     //console.log('OLA K ASE');
