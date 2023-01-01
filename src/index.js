@@ -1,5 +1,5 @@
 const app = require('./app');
-//require('./database');
+require('./database');
 
 async function main(){
     //funcion encargada de iniciar el programa
