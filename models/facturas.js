@@ -36,6 +36,7 @@ const facturaSchema = new Schema({
     pagos:                        [],
     items:                        [],
     ordenes:                      [],
+    pacientes:                      [],
     subido:                       {type: Number}
 });
 
