@@ -2,7 +2,7 @@
   "name": "provida-qr",
   "version": "1.0.0",
   "description": "Sistema de servicios para facturas y resultados por medio de codigos QR",
-  "main": "index.js",  
+  "main": "index.js",
   "scripts": {
     "test": "npm run index.js",
     "dev": "nodemon src/index.js",
