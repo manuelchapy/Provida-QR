@@ -16,10 +16,10 @@ router.route('/buscarFacturaPorId')
 
 router.route('/resultadosPorIdFactura')
 		.post(Ctrlindex.resultadosPorIdFactura)
-
+/*
 router.route('/facturas')
 		.get(Ctrlindex.facturas)
-
+*/
 router.route('/buscarResultado')
 		.post(Ctrlindex.buscarResultado)
 
