@@ -16,10 +16,19 @@ router.route('/buscarFacturaPorId')
 
 router.route('/resultadosPorIdFactura')
 		.post(Ctrlindex.resultadosPorIdFactura)
-/*
+
 router.route('/facturas')
-		.get(Ctrlindex.facturas)
-*/
+		.post(Ctrlindex.facturas)
+
+router.route('/clientes')
+		.post(Ctrlindex.clientes)
+
+router.route('/buscarCliente')
+		.post(Ctrlindex.buscarCliente)
+
+router.route('/buscarFacturaPorIdCliente')
+		.post(Ctrlindex.buscarFacturaPorIdCliente)
+	
 router.route('/buscarResultado')
 		.post(Ctrlindex.buscarResultado)
 

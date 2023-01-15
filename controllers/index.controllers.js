@@ -1,31 +1,102 @@
 const indexCtrl = {};
 const facturaModel = require("../models/facturas");
 const resultadoModel = require("../models/resultados");
+const clienteModel = require("../models/clientes");
 
 indexCtrl.home = async(req, res) =>{
     console.log('OLA K ASE');
     res.send('OLA K ASE');
 };
-/*
+
 indexCtrl.facturas = async(req, res) =>{
+    console.log('OLA K ASE');
+    //res.send('OLA K ASE');
+    if(req.body.clave == "q0qmi7YLxYKWTsIRubZZ38NSWBDZTNnVdvDPBaCx"){
+        let factura;
+        factura = await buscarFacturas();
+        res.send(factura);
+
+        async function buscarFacturas(){
+            return new Promise((resolve, reject) => {
+                let factura, bool;
+                factura = facturaModel.find();
+                //factura = facturaModel.find();
+                //console.log("RESULTADO", factura)
+                resolve(factura);
+            })
+        }
+    }else if(Object.keys(req.body).length === 0){
+        res.send("<h1>Error</h1>")
+    }else {
+        res.send("<h1>Error</h1>")
+    }
+};
+
+indexCtrl.clientes = async(req, res) =>{
+    console.log('OLA K ASE');
+    //res.send('OLA K ASE');
+    if(req.body.clave == "hi9pmsgNc4Y3QKA32rPDUh3PtFJPKRx6YcamodSU"){
+        let clientes;
+        clientes = await buscarClientes();
+        res.send(clientes);
+    
+        async function buscarClientes(){
+            return new Promise((resolve, reject) => {
+                let clientes;
+                clientes = clienteModel.find();
+                //factura = facturaModel.find();
+                //console.log("RESULTADO", factura)
+                resolve(clientes);
+            })
+        }
+    }else if(Object.keys(req.body).length === 0){
+        res.send("<h1>Error</h1>")
+    }else {
+        res.send("<h1>Error</h1>")
+    }
+
+}
+
+indexCtrl.buscarCliente = async(req, res) =>{
+    console.log('OLA K ASE');
+    //res.send('OLA K ASE');
+
+    let cliente;
+    let idCliente = req.body.id_cliente;
+    cliente = await buscarCliente(idCliente);
+    res.send(cliente);
+
+    async function buscarCliente(idCliente){
+        return new Promise((resolve, reject) => {
+            let cliente;
+            cliente = clienteModel.findOne({idCliente: idCliente});
+            //factura = facturaModel.find();
+            //console.log("RESULTADO", factura)
+            resolve(cliente);
+        })
+    }
+};
+
+indexCtrl.buscarFacturaPorIdCliente = async(req, res) =>{
     console.log('OLA K ASE');
     //res.send('OLA K ASE');
 
     let factura;
-    factura = await buscarFacturas();
+    let idCliente = req.body.id_cliente;
+    factura = await buscarFactura(idCliente);
     res.send(factura);
 
-    async function buscarFacturas(){
+    async function buscarFactura(idCliente){
         return new Promise((resolve, reject) => {
-            let factura, bool;
-            factura = facturaModel.find();
+            let factura;
+            factura = facturaModel.find({id_cliente: idCliente});
             //factura = facturaModel.find();
             //console.log("RESULTADO", factura)
             resolve(factura);
         })
     }
 };
-*/
+
 indexCtrl.buscarFactura = async(req, res) =>{
     console.log('OLA K ASE');
     //res.send('OLA K ASE');
