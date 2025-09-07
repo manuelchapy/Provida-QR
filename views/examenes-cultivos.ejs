@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .tab-content {
+            min-height: 400px;
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .table-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        .card {
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            border: 1px solid rgba(0, 0, 0, 0.125);
+        }
+        .nav-tabs .nav-link {
+            color: #495057;
+            font-weight: 500;
+        }
+        .nav-tabs .nav-link.active {
+            color: #0d6efd;
+            background-color: #fff;
+            border-color: #dee2e6 #dee2e6 #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">
+                            <i class="fas fa-flask me-2"></i>
+                            Exámenes y Cultivos - Provida QR
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <!-- Pestañas -->
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="examenes-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#examenes" type="button" role="tab" 
+                                        aria-controls="examenes" aria-selected="true">
+                                    <i class="fas fa-microscope me-2"></i>
+                                    Exámenes
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="cultivos-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#cultivos" type="button" role="tab" 
+                                        aria-controls="cultivos" aria-selected="false">
+                                    <i class="fas fa-seedling me-2"></i>
+                                    Cultivos
+                                </button>
+                            </li>
+                        </ul>
+
+                        <!-- Contenido de las pestañas -->
+                        <div class="tab-content" id="myTabContent">
+                            <!-- Pestaña Exámenes -->
+                            <div class="tab-pane fade show active" id="examenes" role="tabpanel" 
+                                 aria-labelledby="examenes-tab">
+                                <div class="search-container mt-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-search"></i>
+                                        </span>
+                                        <input type="text" class="form-control" id="searchExamenes" 
+                                               placeholder="Buscar por nombre...">
+                                    </div>
+                                </div>
+                                
+                                <div class="loading" id="loadingExamenes">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Cargando...</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="table-container" id="examenesTableContainer">
+                                    <table class="table table-striped table-hover">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Nombre del Examen</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="examenesTableBody">
+                                            <!-- Los datos se cargarán aquí -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="no-results" id="noExamenes" style="display: none;">
+                                    <i class="fas fa-search fa-3x mb-3"></i>
+                                    <h5>No se encontraron exámenes</h5>
+                                    <p>Intenta con otros términos de búsqueda</p>
+                                </div>
+                            </div>
+
+                            <!-- Pestaña Cultivos -->
+                            <div class="tab-pane fade" id="cultivos" role="tabpanel" 
+                                 aria-labelledby="cultivos-tab">
+                                <div class="search-container mt-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-search"></i>
+                                        </span>
+                                        <input type="text" class="form-control" id="searchCultivos" 
+                                               placeholder="Buscar por nombre...">
+                                    </div>
+                                </div>
+                                
+                                <div class="loading" id="loadingCultivos">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Cargando...</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="table-container" id="cultivosTableContainer">
+                                    <table class="table table-striped table-hover">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Nombre del Cultivo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="cultivosTableBody">
+                                            <!-- Los datos se cargarán aquí -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="no-results" id="noCultivos" style="display: none;">
+                                    <i class="fas fa-search fa-3x mb-3"></i>
+                                    <h5>No se encontraron cultivos</h5>
+                                    <p>Intenta con otros términos de búsqueda</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Variables globales
+        let examenesData = [];
+        let cultivosData = [];
+        let searchTimeout;
+
+        // Función para formatear precio
+        function formatPrice(price) {
+            return new Intl.NumberFormat('es-VE', {
+                style: 'currency',
+                currency: 'VES'
+            }).format(price);
+        }
+
+        // Función para mostrar loading
+        function showLoading(elementId) {
+            document.getElementById(elementId).style.display = 'block';
+        }
+
+        // Función para ocultar loading
+        function hideLoading(elementId) {
+            document.getElementById(elementId).style.display = 'none';
+        }
+
+        // Función para cargar exámenes
+        async function loadExamenes(searchTerm = '') {
+            showLoading('loadingExamenes');
+            hideLoading('noExamenes');
+            
+            try {
+                const url = searchTerm ? 
+                    `/examenes-cultivos/api/examenes/buscar?termino=${encodeURIComponent(searchTerm)}` :
+                    '/examenes-cultivos/api/examenes';
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                examenesData = data;
+                renderExamenes(data);
+            } catch (error) {
+                console.error('Error cargando exámenes:', error);
+                showNoResults('noExamenes');
+            } finally {
+                hideLoading('loadingExamenes');
+            }
+        }
+
+        // Función para renderizar exámenes
+        function renderExamenes(data) {
+            const tbody = document.getElementById('examenesTableBody');
+            const noResults = document.getElementById('noExamenes');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = '';
+                showNoResults('noExamenes');
+                return;
+            }
+            
+            hideLoading('noExamenes');
+            tbody.innerHTML = data.map(examen => `
+                <tr>
+                    <td class="py-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-microscope me-2 text-primary"></i>
+                            <span class="fw-medium">${examen.examen_nombre || 'N/A'}</span>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Función para cargar cultivos
+        async function loadCultivos(searchTerm = '') {
+            showLoading('loadingCultivos');
+            hideLoading('noCultivos');
+            
+            try {
+                const url = searchTerm ? 
+                    `/examenes-cultivos/api/cultivos/buscar?termino=${encodeURIComponent(searchTerm)}` :
+                    '/examenes-cultivos/api/cultivos';
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                cultivosData = data;
+                renderCultivos(data);
+            } catch (error) {
+                console.error('Error cargando cultivos:', error);
+                showNoResults('noCultivos');
+            } finally {
+                hideLoading('loadingCultivos');
+            }
+        }
+
+        // Función para renderizar cultivos
+        function renderCultivos(data) {
+            const tbody = document.getElementById('cultivosTableBody');
+            const noResults = document.getElementById('noCultivos');
+            
+            if (data.length === 0) {
+                tbody.innerHTML = '';
+                showNoResults('noCultivos');
+                return;
+            }
+            
+            hideLoading('noCultivos');
+            tbody.innerHTML = data.map(cultivo => `
+                <tr>
+                    <td class="py-3">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-seedling me-2 text-success"></i>
+                            <span class="fw-medium">${cultivo.cultivo_nombre || 'N/A'}</span>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Función para mostrar "no hay resultados"
+        function showNoResults(elementId) {
+            document.getElementById(elementId).style.display = 'block';
+        }
+
+        // Función de búsqueda con debounce
+        function setupSearch(inputId, searchFunction) {
+            const input = document.getElementById(inputId);
+            input.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    searchFunction(e.target.value);
+                }, 300);
+            });
+        }
+
+        // Event listeners para cambio de pestañas
+        document.getElementById('examenes-tab').addEventListener('shown.bs.tab', () => {
+            if (examenesData.length === 0) {
+                loadExamenes();
+            }
+        });
+
+        document.getElementById('cultivos-tab').addEventListener('shown.bs.tab', () => {
+            if (cultivosData.length === 0) {
+                loadCultivos();
+            }
+        });
+
+        // Configurar búsquedas
+        setupSearch('searchExamenes', loadExamenes);
+        setupSearch('searchCultivos', loadCultivos);
+
+        // Cargar exámenes al inicio
+        document.addEventListener('DOMContentLoaded', () => {
+            loadExamenes();
+        });
+    </script>
+</body>
+</html>
